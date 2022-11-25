@@ -14,6 +14,12 @@
         {% endblock %}
     </head>
     <body>
+        <nav>
+            <a href="{{ url('app_category_index') }}">Category</a>
+            <a href="{{ url('app_advert_index') }}">Advert</a>
+            <a href="{{ url('app_picture_index') }}">Picture</a>
+            <a href="{{ url('app_admin_user_index') }}">User</a>
+        </nav>
         {% block body %}{% endblock %}
     </body>
 </html>
