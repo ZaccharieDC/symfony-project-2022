@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for advert in adverts %}
+        {% for advert in pager.currentPageResults %}
             <tr>
                 <td>{{ advert.id }}</td>
                 <td>{{ advert.title }}</td>
@@ -44,6 +44,8 @@
         {% endfor %}
         </tbody>
     </table>
+
+    {{ pagerfanta(pager) }}
 
     <a href="{{ path('app_advert_new') }}">Create new</a>
 {% endblock %}

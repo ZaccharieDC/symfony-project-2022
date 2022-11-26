@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Advert;
 use App\Form\AdvertType;
 use App\Repository\AdvertRepository;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,10 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdvertController extends AbstractController
 {
     #[Route('/', name: 'app_advert_index', methods: ['GET'])]
-    public function index(AdvertRepository $advertRepository): Response
+    public function index(AdvertRepository $advertRepository, Request $request): Response
     {
+        $queryBuilder = $advertRepository->createQueryBuilder('advert');
+
+        $pager = new Pagerfanta(new QueryAdapter($queryBuilder));
+        $pager->setMaxPerPage(30);
+        $pager->setCurrentPage($request->get('page', 1));
+
         return $this->render('advert/index.html.twig', [
-            'adverts' => $advertRepository->findAll(),
+            'pager' => $pager,
         ]);
     }
 

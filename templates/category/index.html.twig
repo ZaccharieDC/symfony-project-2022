@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for category in categories %}
+        {% for category in pager.currentPageResults %}
             <tr>
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
@@ -30,6 +30,8 @@
         {% endfor %}
         </tbody>
     </table>
+
+    {{ pagerfanta(pager) }}
 
     <a href="{{ path('app_category_new') }}">Create new</a>
 {% endblock %}
