@@ -55,6 +55,7 @@ class AdminUserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $adminUser->setUpdatedAt(new \DateTimeImmutable());
             $adminUserRepository->save($adminUser, true);
 
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
