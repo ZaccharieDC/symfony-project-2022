@@ -5,10 +5,13 @@ namespace App\Controller;
 use App\Entity\AdminUser;
 use App\Form\AdminUserType;
 use App\Repository\AdminUserRepository;
+use App\Security\AdminUserVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/admin/user')]
 class AdminUserController extends AbstractController
@@ -30,6 +33,8 @@ class AdminUserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $adminUserRepository->save($adminUser, true);
+
+            $this->addFlash('success', 'User created successfully');
 
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,6 +63,8 @@ class AdminUserController extends AbstractController
             $adminUser->setUpdatedAt(new \DateTimeImmutable());
             $adminUserRepository->save($adminUser, true);
 
+            $this->addFlash('success', 'User updated successfully');
+
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -68,10 +75,16 @@ class AdminUserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_admin_user_delete', methods: ['POST'])]
-    public function delete(Request $request, AdminUser $adminUser, AdminUserRepository $adminUserRepository): Response
+    public function delete(Request $request, AdminUser $adminUser, AdminUserRepository $adminUserRepository, Security $security): Response
     {
         if ($this->isCsrfTokenValid('delete'.$adminUser->getId(), $request->request->get('_token'))) {
+            if (!$security->isGranted(AdminUserVoter::DELETE, $adminUser)) {
+                throw new AccessDeniedHttpException();
+            }
+
             $adminUserRepository->remove($adminUser, true);
+
+            $this->addFlash('success', 'User deleted successfully');
         }
 
         return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);

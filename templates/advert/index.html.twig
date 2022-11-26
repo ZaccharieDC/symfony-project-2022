@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Title</th>
                 <th>Content</th>
                 <th>Author</th>
@@ -23,7 +22,6 @@
         <tbody>
         {% for advert in pager.currentPageResults %}
             <tr>
-                <td>{{ advert.id }}</td>
                 <td>{{ advert.title }}</td>
                 <td>{{ advert.content }}</td>
                 <td>{{ advert.author }}</td>

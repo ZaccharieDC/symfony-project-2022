@@ -20,6 +20,13 @@
             <a href="{{ url('app_picture_index') }}">Picture</a>
             <a href="{{ url('app_admin_user_index') }}">User</a>
         </nav>
+
+        {% for message in app.flashes('success') %}
+            <div>
+                {{ message }}
+            </div>
+        {% endfor %}
+
         {% block body %}{% endblock %}
     </body>
 </html>
