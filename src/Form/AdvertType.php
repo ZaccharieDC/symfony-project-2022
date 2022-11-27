@@ -17,9 +17,6 @@ class AdvertType extends AbstractType
             ->add('author')
             ->add('email')
             ->add('price')
-            ->add('state')
-            ->add('createdAt')
-            ->add('publishedAt')
             ->add('category')
         ;
     }

@@ -36,7 +36,7 @@ class Advert
     private ?float $price = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $state = null;
+    private ?string $state = 'draft';
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
