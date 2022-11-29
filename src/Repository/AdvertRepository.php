@@ -39,6 +39,54 @@ class AdvertRepository extends ServiceEntityRepository
         }
     }
 
+    public function removeRejected(\DateTimeImmutable $date, bool $flush = false): void
+    {
+        $deleteRejectedAdvertQuery = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->delete(Advert::class, 'a')
+            ->where('a.createdAt < :today')
+            ->andWhere('a.createdAt > :date')
+            ->andWhere('a.state = :state');
+
+        $deleteRejectedAdvertQuery->setParameters([
+            'today' => new \DateTimeImmutable(),
+            'date' => $date,
+            'state' => 'rejected',
+        ]);
+
+        $query = $deleteRejectedAdvertQuery->getQuery();
+
+        $query->execute();
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function removePublished(\DateTimeImmutable $date, bool $flush = false): void
+    {
+        $deletePublishedAdvertQuery = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->delete(Advert::class, 'a')
+            ->where('a.publishedAt < :today')
+            ->andWhere('a.publishedAt > :date')
+            ->andWhere('a.state = :state');
+
+        $deletePublishedAdvertQuery->setParameters([
+            'today' => new \DateTimeImmutable(),
+            'date' => $date,
+            'state' => 'published',
+        ]);
+
+        $query = $deletePublishedAdvertQuery->getQuery();
+
+        $query->execute();
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
 //    /**
 //     * @return Advert[] Returns an array of Advert objects
 //     */

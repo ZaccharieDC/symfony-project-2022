@@ -39,6 +39,29 @@ class PictureRepository extends ServiceEntityRepository
         }
     }
 
+    public function removeUnlinked(\DateTimeImmutable $date, bool $flush = false): void
+    {
+        $deleteUnlinkedPictureQuery = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->delete(Picture::class, 'p')
+            ->where('p.createdAt < :today')
+            ->andWhere('p.createdAt > :date')
+            ->andWhere('p.advert IS NULL');
+
+        $deleteUnlinkedPictureQuery->setParameters([
+            'today' => new \DateTimeImmutable(),
+            'date' => $date,
+        ]);
+
+        $query = $deleteUnlinkedPictureQuery->getQuery();
+
+        $query->execute();
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
 //    /**
 //     * @return Picture[] Returns an array of Picture objects
 //     */
