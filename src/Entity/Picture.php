@@ -11,6 +11,7 @@ use ApiPlatform\Metadata\Put;
 use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ApiResource(
@@ -31,6 +32,7 @@ class Picture
     private ?int $id = null;
 
     #[Vich\UploadableField(mapping: 'adverts', fileNameProperty: 'path')]
+    #[Assert\NotNull]
     private ?File $pictureFile = null;
 
     #[ORM\Column(length: 255)]

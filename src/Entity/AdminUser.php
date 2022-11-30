@@ -8,6 +8,7 @@ use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AdminUserRepository::class)]
 class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface, TimestampableInterface
@@ -20,11 +21,16 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface, Ti
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private ?string $email = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 8)]
     private ?string $plainPassword = null;
 
     #[ORM\Column(length: 255)]
