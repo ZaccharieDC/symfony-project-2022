@@ -10,6 +10,8 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ApiResource(
     operations: [
@@ -28,6 +30,9 @@ class Picture
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Vich\UploadableField(mapping: 'adverts', fileNameProperty: 'path')]
+    private ?File $pictureFile = null;
+
     #[ORM\Column(length: 255)]
     private ?string $path = null;
 
@@ -40,6 +45,16 @@ class Picture
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
+    public function setPictureFile(?File $pictureFile): void
+    {
+        $this->pictureFile = $pictureFile;
     }
 
     public function getPath(): ?string
