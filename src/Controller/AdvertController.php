@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Advert;
-use App\Form\AdvertType;
 use App\Repository\AdvertRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;

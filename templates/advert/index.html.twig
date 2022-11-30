@@ -16,6 +16,7 @@
                 <th>State</th>
                 <th>CreatedAt</th>
                 <th>PublishedAt</th>
+                <th>Number of pictures</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -30,6 +31,7 @@
                 <td>{{ advert.state }}</td>
                 <td>{{ advert.createdAt ? advert.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ advert.publishedAt ? advert.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ advert.getPictures.count }}</td>
                 <td>
                     <a href="{{ path('app_advert_show', {'id': advert.id}) }}">show</a>
 

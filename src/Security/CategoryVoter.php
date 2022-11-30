@@ -4,7 +4,6 @@ namespace App\Security;
 
 use App\Entity\AdminUser;
 use App\Entity\Category;
-use Doctrine\ORM\EntityManagerInterface as EntityManager;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 

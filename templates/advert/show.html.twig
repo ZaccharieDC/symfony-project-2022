@@ -39,6 +39,14 @@
                 <th>PublishedAt</th>
                 <td>{{ advert.publishedAt ? advert.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            <tr>
+                <th>Pictures</th>
+                {% for picture in advert.getPictures %}
+                    <td>
+                        <img src="{{ picture.path }}" alt="">
+                    </td>
+                {% endfor %}
+            </tr>
         </tbody>
     </table>
 
