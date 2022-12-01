@@ -8,7 +8,6 @@ use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Workflow\Event\Event;
-use Symfony\Component\Workflow\Event\GuardEvent;
 
 class AdvertWorkflowSubscriber implements EventSubscriberInterface
 {
@@ -39,14 +38,5 @@ class AdvertWorkflowSubscriber implements EventSubscriberInterface
         $recipient = new Recipient($advert->getEmail());
 
         $this->notifier->send($notification, $recipient);
-    }
-
-    public function advertPublished(GuardEvent $event)
-    {
-        $advert = $event->getSubject();
-
-        if (!$advert instanceof Advert) {
-            return;
-        }
     }
 }

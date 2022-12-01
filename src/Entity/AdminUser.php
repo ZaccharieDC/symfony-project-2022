@@ -94,7 +94,7 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface, Ti
 
     public function eraseCredentials(): void
     {
-        // TODO: Implement eraseCredentials() method.
+        $this->plainPassword = '';
     }
 
     public function getUserIdentifier(): string

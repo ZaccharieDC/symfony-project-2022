@@ -207,9 +207,6 @@ class Advert
         return $this;
     }
 
-    /**
-     * @return Collection<int, Picture>
-     */
     public function getPictures(): Collection
     {
         return $this->pictures;

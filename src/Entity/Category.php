@@ -78,9 +78,6 @@ class Category
         return $this;
     }
 
-    /**
-     * @return Collection<int, Advert>
-     */
     public function getAdverts(): Collection
     {
         return $this->adverts;
@@ -99,7 +96,6 @@ class Category
     public function removeAdvert(Advert $advert): self
     {
         if ($this->adverts->removeElement($advert)) {
-            // set the owning side to null (unless already changed)
             if ($advert->getCategory() === $this) {
                 $advert->setCategory(null);
             }

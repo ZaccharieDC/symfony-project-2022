@@ -23,7 +23,8 @@ class AdminUserListener
         $this->setHashedPassword($event);
     }
 
-    public function setHashedPassword(LifecycleEventArgs $event) {
+    public function setHashedPassword(LifecycleEventArgs $event): void
+    {
         $adminUser = $event->getObject();
         if (!$adminUser instanceof AdminUser) {
             return;

@@ -4,7 +4,6 @@ namespace App\Tests\Controller;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\Advert;
-use App\Entity\Category;
 
 class AdvertApi extends ApiTestCase
 {
@@ -20,6 +19,7 @@ class AdvertApi extends ApiTestCase
         $iri = $this->findIriBy(Advert::class, ['id' => '418941516']);
         self::createClient()->request('GET', '/api/adverts'.$iri);
         self::assertResponseStatusCodeSame(200);
+        $this->assertMatchesResourceItemJsonSchema(Advert::class);
     }
 
     public function testCreateBook(): void

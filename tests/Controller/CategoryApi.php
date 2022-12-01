@@ -19,5 +19,6 @@ class CategoryApi extends ApiTestCase
         $iri = $this->findIriBy(Category::class, ['id' => '59415216']);
         self::createClient()->request('GET', '/api/categories'.$iri);
         self::assertResponseStatusCodeSame(200);
+        $this->assertMatchesResourceItemJsonSchema(Category::class);
     }
 }
